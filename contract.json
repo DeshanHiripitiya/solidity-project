@@ -1,0 +1,41 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_x",
+        "type": "string"
+      }
+    ],
+    "name": "setMessage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "myMessage",
+        "type": "string"
+      }
+    ],
+    "name": "updateMessageEvent",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "getMessage",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
