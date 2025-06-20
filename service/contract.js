@@ -15,15 +15,15 @@ const wsWeb3 = new Web3(wsProvider);
 const httpWeb3 = new Web3(process.env.RPC_URL);
 
 wsProvider.on('connect', () => {
-  console.log('WebSocket connected successfully');
+  console.log('WebSocket contract connected successfully');
 });
 
 wsProvider.on('error', (error) => {
-  console.error('WebSocket connection error:', error);
+  console.error('WebSocket contract connection error:', error);
 });
 
 wsProvider.on('end', () => {
-  console.log('WebSocket connection ended');
+  console.log('WebSocket contract connection ended');
 });
 
 const account = httpWeb3.eth.accounts.privateKeyToAccount(

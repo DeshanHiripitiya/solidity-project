@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-  httpContract,
-  account,
-} = require('../service/contract');
+const { httpContract, account } = require('../service/contract');
+const { broadcastMessage } = require('../service/socket');
 
 router.get('/', async (req, res) => {
   const message = await httpContract.methods.getMessage().call();
@@ -12,17 +10,18 @@ router.get('/', async (req, res) => {
 
   return res.status(200).json({
     status: true,
-    message: message  ,
+    message: message,
   });
 });
 
 router.post('/create', async (req, res) => {
-  const tx = await httpContract.methods
-    .setMessage('hello nadun')
-    .send({
-      from: account.address,
-      gas: 100000,
-    });
+  const message = 'hello new message';
+  const tx = await httpContract.methods.setMessage(message).send({
+    from: account.address,
+    gas: 100000,
+  });
+
+  await broadcastMessage(message);
 
   console.log('Message updated! TX Hash:', tx.transactionHash);
 
