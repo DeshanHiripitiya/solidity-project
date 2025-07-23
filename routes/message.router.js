@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { httpContract, account } = require('../service/contract');
+const { httpContract, wallet } = require('../service/contract');
 const { broadcastMessage } = require('../service/socket');
 
 router.get('/', async (req, res) => {
-  const message = await httpContract.methods.getMessage().call();
+  const message = await httpContract.getMessage();
   console.log('Current message:', message);
 
   return res.status(200).json({
@@ -16,9 +16,8 @@ router.get('/', async (req, res) => {
 
 router.post('/create', async (req, res) => {
   const message = 'hello new message';
-  const tx = await httpContract.methods.setMessage(message).send({
-    from: account.address,
-    gas: 100000,
+  const tx = await httpContract.setMessage(message, {
+    gasLimit: 100000
   });
 
   await broadcastMessage(message);
